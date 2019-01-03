@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Catamaran' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css?family=Raleway:900" rel="stylesheet">
+    <style>
+    body {
+        font-family: 'Catamaran';
+        font-size: 23px;
+        background: #222222;
+        color: white;
+    }
+
+    .container{
+  			height: 100%;
+  			width: 100%;
+  			display: flex;
+
+  			align-items: center;
+  			justify-content: center;
+	}
+	.center{
+  			width: 50%;
+  			height: 50%;
+	}
+	.headerHome{
+		    font-family: 'Raleway', sans-serif;
+            background: #222222;
+            text-transform: uppercase;
+            left: 0%;
+            width: 100%;
+            -webkit-transform: translateY(-50%);
+                    transform: translateY(-50%);
+            font-size: 3rem;
+            color: #25c5d4;
+            text-align: center;
+            margin-top: 0;
+            font-weight: 100;
+	}
+	.inspiration-button-reset {
+		    font-family: 'Raleway', sans-serif;
+
+			left: 50%;
+			-webkit-transform: translate(-50%, 0%);
+					transform: translate(-50%, 0%);
+			color: #222222;
+			text-decoration: none;
+			padding: 0.75rem 1rem;
+			border-radius: 80px;
+			background: rgb(24,59,203);
+			background: linear-gradient(90deg, rgba(24,59,203,1) 0%, rgba(9,255,243,1) 100%);
+			-webkit-transition: -webkit-transform 250ms ease;
+			transition: -webkit-transform 250ms ease;
+			transition: transform 250ms ease;
+			transition: transform 250ms ease, -webkit-transform 250ms ease;
+  	}
+	.inspiration-button-reset:hover, .inspiration-button-reset:focus, .inspiration-button-reset:active {
+		  -webkit-transform: translate(-50%, -10%);
+				  transform: translate(-50%, -10%);
+	}
+    </style>
+    <meta charset="UTF-8">
+    <title>Consult Doctor</title>
+
+</head>
+<body>
+<header class="headerHome">
+    <h2 onmouseover="" style="cursor: pointer;" onclick="location.href='./index.html';">Workout Planner</h2>
+</header>
+<div class="container" style="height:20%">
+    <div class="center">
+        <h2>Please consult your doctor.</h2>
+        <par>
+            It would be impossible to judge the extent of your injury or health issue
+            through this system and hence it is not advisable to go through with.
+            Please consulting your doctor to make sure of the exercises you are allowed and
+            not allowed to do.
+        </par>
+    </div>
+</div>
+<div style="height:20px"></div>
+<div align="center">
+    <a href="/kb" class="inspiration-button-reset" onclick=onclick="location.href='/kb';"> Re-start </a>
+</div>
+</body>
+</html>

@@ -1,0 +1,11 @@
+org/rug/ai/kb/utils/RelationshipEdge.class
+org/rug/ai/kb/domainmodel/OptionTextValue.class
+org/rug/ai/kb/utils/KnowledgeBase.class
+org/rug/ai/kb/controller/KBController.class
+org/rug/ai/kb/domainmodel/Survey.class
+org/rug/ai/kb/service/RuleModel.class
+org/rug/ai/kb/domainmodel/UserProfile.class
+org/rug/ai/kb/Application.class
+org/rug/ai/kb/service/Inference.class
+org/rug/ai/kb/utils/QuestionsUtil.class
+org/rug/ai/kb/utils/CustomVertex.class
