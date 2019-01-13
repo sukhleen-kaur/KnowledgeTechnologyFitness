@@ -1,5 +1,5 @@
 # Knowledge Technology Workout Planner
-Knowledge Technology Practical RUG - Fitness Group 07 - Davyd, Sho and Sukhleen
+Knowledge Technology Practical RUG - Fitness Group 07 - Davyd, Sho, and Sukhleen
 
 [Workout Planner](http://ec2-3-122-116-231.eu-central-1.compute.amazonaws.com:8080/?fbclid=IwAR0wwHnvMsvDz-KJLX-X4_UyebTe1VJmNJiAww-m712_yFT_CAgFG6J3VmM)
 
