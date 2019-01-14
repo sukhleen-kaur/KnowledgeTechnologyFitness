@@ -9,7 +9,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * this class loads all the knowledge base from the exercise.txt file
+ */
 public class KnowledgeBase {
+    /**
+     *
+     * @return
+     * @throws Exception
+     */
     public  static Map<String,String[]> getDomainKnowledgeMap() throws Exception {
         Resource resource = new ClassPathResource("exercise.txt");
         List<String> list = IOUtils.readLines(resource.getInputStream(), StandardCharsets.UTF_8);

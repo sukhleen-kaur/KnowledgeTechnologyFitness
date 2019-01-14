@@ -5,6 +5,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
+/**
+ * this will start the web application
+ */
 @SpringBootApplication
 @ComponentScan(basePackages = {"org.rug.ai.kb"})
 public class Application {

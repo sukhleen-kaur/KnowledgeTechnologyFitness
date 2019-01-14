@@ -25,7 +25,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-@Scope("request")
+/**
+ * This is the controller class
+ */
 @Controller
 public class KBController {
 
@@ -34,13 +36,17 @@ public class KBController {
 	private Map<String, String[]> exerciseMap = null;
 
 	@Resource
-	private UserProfile fact;
+	private UserProfile fact; //this is a session scoped variable
 	
-	
+	//initialize custom vertex
 	private CustomVertex root = new CustomVertex("1", "Do you have any health problems or injuries?", "radio");
     private Survey rootSurvey;
-    
-    
+
+	/**
+	 * load the questions and the knowledge base on startup
+	 *
+	 * @throws Exception
+	 */
 	@PostConstruct
 	public void init() throws Exception {
 		graph = QuestionsUtil.getGraph();
@@ -48,6 +54,13 @@ public class KBController {
 		exerciseMap = KnowledgeBase.getDomainKnowledgeMap();
 	}
 
+	/**
+	 * this will load the initial form
+	 *
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
 	@GetMapping("/kb")
 	public String kbForm(Model model) throws Exception {
 		graph = QuestionsUtil.getGraph();
@@ -64,8 +77,16 @@ public class KBController {
 		return "home";
 	}
 
+	/**
+	 * it will load all the subsequent questions and the final recommendations
+	 *
+	 * @param survey
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
 	@PostMapping("/kb")
-	public String kbSubmit(@ModelAttribute Survey survey, Model model) throws Exception {
+	public String kbSubmit(@ModelAttribute Survey survey, Model model) throws Exception { /*Returning the appropriate pages after the questionnaire has been completed*/
 		logger.info("Selected Values" +  survey.getRadioButtonSelectedValue());
 		String[] values =  getValues(survey.getRadioButtonSelectedValue());
 		CustomVertex cv = new CustomVertex(values[2], values[3], values[4]);
@@ -74,25 +95,31 @@ public class KBController {
 		RuleModel.populate(fact, question, selectedVal);
 
 		Survey surveyNew = QuestionsUtil.getSurveyInstance(graph, cv);
+		//check if user has any health issue or injury
 		if (isExit(question, selectedVal)){
 			return "exit";
-		} else if (surveyNew.getQuestion().equals("exit")) {
-			System.out.println(fact.toString());
+		} else if (surveyNew.getQuestion().equals("exit")) { //if user has reached the last question then fire inference and get the recommendation
 			Inference.inferRules(fact, exerciseMap);
 			model.addAttribute("recommendations", fact.getRecommendations());
 			return "recommendation";
-		} else {
-
+		} else { //populate the model
 			model.addAttribute("survey", surveyNew);
 			model.addAttribute("question", surveyNew.getQuestion());
 			model.addAttribute("singleSelectAllText", surveyNew.getOptionTextValues());
 			model.addAttribute("singleSelectAllValues", surveyNew.getOptionsValues());
 			model.addAttribute("displayType", surveyNew.getDisplayType());
-					return "home";
+			return "home";
 		}
 
 	}
 
+	/**
+	 * check if user has health issue or injury
+	 *
+	 * @param question
+	 * @param answer
+	 * @return
+	 */
 	private boolean isExit(String question, String answer){
 		if(question.equals("Do you have any health problems or injuries?") && answer.equals("Yes")){
 			return true;
@@ -100,12 +127,20 @@ public class KBController {
 		return false;
 	}
 
+	/**
+	 * function to get the value selected by the user
+	 * for radio buttons : single value
+	 * for checkboxes : multiple values returned
+	 *
+	 * @param selectedValue
+	 * @return
+	 */
 	private String[] getValues(String selectedValue){
 		String[] retVal = new String[5];
 		String[] multipleVal = selectedValue.split(",");
 		String[] temp = multipleVal[0].split("%");
 		retVal[0] = temp[0];
-		retVal[1] = ""; /*answer field*/
+		retVal[1] = ""; //answer field
 		retVal[2] = temp[2];
 		retVal[3] = temp[3];
 		retVal[4] = temp[4];

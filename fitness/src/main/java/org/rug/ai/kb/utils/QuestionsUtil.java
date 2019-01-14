@@ -17,6 +17,9 @@ import org.springframework.core.io.Resource;
 
 import java.util.*;
 
+/**
+ * this class loads the questionnaire from questionsGraphUP.gml
+ */
 public final class QuestionsUtil {
 
 	private static String getQuestionsGraph() throws Exception {
@@ -26,7 +29,13 @@ public final class QuestionsUtil {
 		
 	}
 
-	public  static Graph<CustomVertex, RelationshipEdge> getGraph() throws Exception {
+	/**
+	 * load the graph
+	 *
+	 * @return
+	 * @throws Exception
+	 */
+	public static Graph<CustomVertex, RelationshipEdge> getGraph() throws Exception {
 		
 		Graph<CustomVertex, RelationshipEdge> g  = new DirectedPseudograph<>(RelationshipEdge.class);
 
@@ -44,10 +53,18 @@ public final class QuestionsUtil {
 		GmlImporter<CustomVertex, RelationshipEdge> importer = new GmlImporter<>(vp, ep);
 		
 		importer.importGraph(g, new StringReader(getQuestionsGraph()));
-		//importer.importGraph(g, new StringReader(input));
+
 		return g;
 	}
-	
+
+	/**
+	 * get a specific node for the specified custom vertex from the graph
+	 *
+	 * @param g
+	 * @param cv
+	 * @return
+	 * @throws Exception
+	 */
 	public static Survey getSurveyInstance(Graph<CustomVertex, RelationshipEdge> g, CustomVertex cv) throws Exception{
 		Survey survey = new Survey();
 	
@@ -61,7 +78,7 @@ public final class QuestionsUtil {
 			options[i] = element.getLabel();
 			optionsValues[i] = element.getLabel() + "x";
 			String value  = cv.getLabel() + "%" + options[i] + "%" + g.getEdgeTarget(element).getId() + "%" + g.getEdgeTarget(element).getLabel()
-				       + "%"  + g.getEdgeTarget(element).getDisplay(); //when you click on 'no' what should be the next value //concatenate
+				       + "%"  + g.getEdgeTarget(element).getDisplay(); //when you click on 'no' what should be the next value (concatenate)
 			optV[i] = new OptionTextValue(element.getLabel(),value );
 		});
 		survey.setOptions(options);
@@ -70,26 +87,5 @@ public final class QuestionsUtil {
 		survey.setQuestion(cv.getLabel());
 		survey.setDisplayType(cv.getDisplay());
 		return survey;
-	}
-	
-	public static void main(String args[]) {
-		try {
-			Graph<CustomVertex, RelationshipEdge> g = getGraph();
-			
-
-			CustomVertex cv = new CustomVertex("2", "What is your goal?", "checkbox");
-			Set<RelationshipEdge> edges = g.outgoingEdgesOf(cv);
-			edges.forEach(element -> {
-				System.out.println(element.getLabel());
-				System.out.println(g.getEdgeSource(element).getDisplay());
-				System.out.println(g.getEdgeTarget(element).getLabel());
-				//System.out.println(g);
-			});
-			System.out.println(edges.size());
-
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 }

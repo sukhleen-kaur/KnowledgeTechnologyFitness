@@ -6,6 +6,9 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 
+/**
+ * class for populating the domain model instance
+ */
 public class RuleModel {
 
 	private static Logger logger = LoggerFactory.getLogger(RuleModel.class);

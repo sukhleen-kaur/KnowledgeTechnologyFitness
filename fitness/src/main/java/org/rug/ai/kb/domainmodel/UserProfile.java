@@ -7,7 +7,11 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.context.annotation.ScopedProxyMode;
 
-
+/**
+ * This the domain model and it is session scoped
+ * for each session a new instance is created
+ * it is managed by Spring
+ */
 @Component
 @Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class UserProfile  implements Serializable {
@@ -17,6 +21,7 @@ public class UserProfile  implements Serializable {
 	private String goal;
 	private String time;
 	private List<String> recommendations;
+	private String healthInjury;
 
 	public void init() {
 		this.age = null;

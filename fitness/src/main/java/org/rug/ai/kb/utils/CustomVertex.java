@@ -1,5 +1,9 @@
 package org.rug.ai.kb.utils;
 
+
+/**
+ * this class is used for loading the questions
+ */
 public class CustomVertex {
 	private String id;
 	private String label;
